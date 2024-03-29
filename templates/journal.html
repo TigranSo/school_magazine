@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="container">
+        <h2><a href="/" class="index_page">Главная</a>/журнал</h2>
+        <div>
+            <form method="get">
+                Выберите группу:
+                <select name="group" onchange="this.form.submit()">
+                    <option value="all" {% if not selected_group_id %} selected {% endif %}>Все группы</option>
+                    {% for group in groups %}
+                        <option value="{{ group.id }}" {% if selected_group_id == group.id %} selected {% endif %}>{{ group.name }}</option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+        <div class="controls">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addStudentModal">
+                Добавить ученика
+            </button>
+            <form action="{{ url_for('add_date') }}" method="post" class="form-inline">
+                <div class="input-group mb-4">
+                    <input type="date" class="form-control" name="new_date" required>
+                    <button type="submit" class="btn btn-primary">Добавить дату</button>
+                </div>
+            </form>
+        </div>
+        <div>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <ul class="flashes">
+                        {% for category, message in messages %}
+                            <li class="{{ category }} message text-success">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        </div>
+        <table>
+            <tr>
+                <th>Фамилия</th>
+                {% for date in dates %}
+                    <th>{{ date.strftime('%d.%m') }}</th>
+                {% endfor %}
+                <th>Действия</th>
+            </tr>
+
+            {% for student in students %}
+                <tr>
+                    <td>{{ student.name }}</td>
+
+                    {% for date in dates %}
+                        <td>
+                            {% set mark = student.marks|selectattr("date", "equalto", date)|first %}
+                            <form action="{{ url_for('add_mark') }}" method="post">
+                                <input type="hidden" name="student_id" value="{{ student.id }}">
+                                <input type="hidden" name="date" value="{{ date }}">
+                                <input type="number" name="value" min="1" max="10" value="{{ mark.value if mark }}">
+                                <input type="submit" value="Сохранить">
+                            </form>
+                        </td>
+                    {% endfor %}
+                    <td>
+                        <form action="{{ url_for('remove_student') }}" method="post" style="display: inline;">
+                            <input type="hidden" name="student_id" value="{{ student.id }}">
+                            <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+<!-- Модальное окно добавить ученика -->
+<div class="modal fade" id="addStudentModal" tabindex="-1" role="dialog" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addStudentModalLabel">Добавить ученика</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="{{ url_for('add_student') }}" method="post">
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="student-name">Фамилия</label>
+                <input type="text" class="form-control" id="student-name" name="student_name" required>
+            </div>
+            <div class="form-group">
+                <label for="student-group">Группа</label>
+                <select class="form-control" id="student-group" name="group_id">
+                    <option>Выберите группу</option>
+                    {% for group in groups %}
+                    <option value="{{ group.id }}">{{ group.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+          <input type="submit" class="btn btn-primary" value="Добавить">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

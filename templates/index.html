@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    {% if current_user.is_authenticated %}
+        <div class="container">
+            <div class="main-content">
+                <h2 class="text-center">Добро пожаловать</h2>
+                <div class="salute-animation">
+                    🎉 {{ current_user.username }} 🎉
+                </div>
+                <img src="{{ url_for('static', filename='img/main2.webp') }}" alt="logopage" class="img">
+            </div>
+        </div>
+
+        <style>
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+
+            .salute-animation {
+                font-size: 2em;
+                animation: fadeIn 2s ease-in-out forwards, float 2s ease-in-out infinite;
+                text-align: center;
+                color: #ff4500;
+                margin-top: 20px;
+            }
+
+            @keyframes float {
+                0% { transform: translateY(0px); }
+                50% { transform: translateY(-20px); }
+                100% { transform: translateY(0px); }
+            }
+        </style>
+    {% else %}
+        <div class="container">
+            <div class="main-content">
+                <h2 class="text-center">Добро пожаловать в наш школьный журнал!</h2>
+                <img src="{{ url_for('static', filename = 'img/main.webp') }}" alt="logo" class="img">
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}

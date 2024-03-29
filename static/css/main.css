@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+.btn{
+    border-radius: 20px !important;
+}
+
+body { 
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 200;
+    margin: 0;
+    padding: 0;
+    font-style: normal;
+}
+
+.form-login-register{
+    background-color: #9bbced;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.nav-link {
+    display: inline;
+    padding: 30px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.index_page {
+    text-decoration: none;
+    color: black;
+}
+
+label {
+    text-align: left;
+}
+input[type=text],
+input[type=password] {
+    margin-bottom: 10px;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.index_page {
+    color: black;
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 200;
+    font-style: normal;
+}
+
+.header { 
+    border-bottom: 2px solid #7aaaf2; 
+    padding: 10px; 
+    text-align: right; 
+}
+
+.header a { 
+    padding: 5px 15px; 
+}
+
+.jurnal-btn {
+    float: left;
+}
+
+.container { 
+    width: 80%;
+    margin: 20px auto; 
+}
+
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    margin-top: 20px; 
+}
+
+th, td { 
+    border: 1px solid #ddd; 
+    padding: 8px; 
+    text-align: left; 
+}
+
+th { 
+    background-color: #f2f2f2; 
+}
+
+.controls { 
+    text-align: right; 
+    margin: 20px 0; 
+}
+
+.controls button { 
+    padding: 5px 15px; 
+    margin-left: 10px; 
+}
+
+select { 
+    padding: 5px 10px; 
+}
+
+.main-container { 
+    width: 80%; 
+    margin: 50px auto; 
+}
+
+.img {
+    margin: 50px auto; 
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+button {
+    background-color: #008cba;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    border-radius: 15px;
+}
+button:hover {
+    background-color: #005f73;
+}
+
+.form-inline {
+    float: left; 
+    width: 200px;
+}
